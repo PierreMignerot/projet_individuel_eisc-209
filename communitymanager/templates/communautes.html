@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Communautés {% endblock %}
+{% block content %}
+<div class="col-lg-12 mt-2">
+    <h1>Communities</h1>
+    <div class="row">
+        {% if communautes %}
+            {% for communaute in communautes %}
+                <div class="d-flex justify-content-between border pt-2">
+                    <a href="{% url 'communaute' pk=communaute.pk %}">
+                        <h3>{{ communaute.noms }}</h3>
+                    </a>
+                    <form action="{% url 'communautes' %}" method="post">
+                    {% csrf_token %}
+                    {% if request.user in communaute.abonnes.all %}
+                        <input type="text" name="communaute" value="{{ communaute.pk }}" hidden>
+                        <input type="text" name="abn_stat" value="on" hidden>
+                        <button type="submit" class="border-0">
+                            <i class="fas fa-heart fa-1x"
+                               style="color: red" ></i>
+                        </button>
+                        {% else %}
+                        <input type="text" name="communaute" value="{{ communaute.pk }}" hidden>
+                        <input type="text" name="abn_stat" value="off" hidden>
+                        <button type="submit" class="border-0">
+                            <i class="fas fa-heart fa-1x"
+                               style="color: black" ></i>
+                        </button>
+                    {% endif %}
+                    </form>
+                </div>
+            {% endfor %}
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

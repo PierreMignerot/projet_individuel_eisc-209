@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Posts - Communauté {% endblock %}
+{% block content %}
+    <div class="col-lg-12 mt-2">
+        <div class="d-flex justify-content-between">
+            <h1>{{ commmunaute.noms }}</h1>
+            <a href="{% url 'create_post' %}"><i class="fas fa-plus-circle fa-3x"></i></a>
+        </div>
+        {% for post in posts %}
+        <div class="d-flex justify-content-between border p-3 my-2">
+                <div class="row">
+                    <a href="{% url 'post' post.pk %}">
+                        <h3>{{ post.titre }}</h3>
+                    </a>
+                    <p>{{ post.description }}</p>
+                </div>
+                <div class="">
+                    <small class="col d-flex justify-content-end">
+                        <small class="d-inline-flex bg-dark text-light">{{ post.titre }}</small>
+                        <a href="{% url 'modif_post' pk=post.pk %}"><i class="fas fa-edit text-primary ps-2"></i></a>
+                    </small>
+                    <small class="row">By {{ post.auteur }} {{ post.date_de_creation }}</small>
+                    <i class="d-flex justify-content-end fas fa-comment-dots"></i>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+{% endblock %}

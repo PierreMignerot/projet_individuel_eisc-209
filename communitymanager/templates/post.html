@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Commentaires - Post {% endblock %}
+{% block content %}
+    <div class="col-lg-12 mt-2">
+        <div class="d-flex justify-content-between border p-3 my-2">
+            <div class="row">
+                <a href="{% url 'communaute' pk=post.pk %}">
+                    <h3>{{ post.titre }}</h3>
+                </a>
+                <p>{{ post.description }}</p>
+            </div>
+            <div class="">
+                <small class="col d-flex justify-content-end">
+                    <small class="d-inline-flex bg-dark text-light">{{ post.titre }}</small>
+                    <a href="{% url 'modif_post' pk=post.pk %}"><i class="fas fa-edit text-primary ps-2"></i></a>
+                </small>
+                <small class="row">By {{ post.auteur }} {{ post.date_de_creation }}</small>
+                <i class="d-flex justify-content-end fas fa-comment-dots"></i>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <h4>Comment</h4>
+        </div>
+        <div>
+            {% if commentaires %}
+                {% for commentaire in commentaires %}
+                    <div class="col p-3 comment">
+                        <div class="row">
+                            <p>By <b>{{ commentaire.auteur }}</b> at <b>{{ commentaire.date_creation }}</b></p>
+                        </div>
+                        <div class="row">
+                            <p>{{ commentaire.contenu }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+                <p>Be the first to comment that post</p>
+            {% endif %}
+        </div>
+        <div class="form-row">
+            <form action="{% url 'post' pk=post.pk %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <div class="col-lg-2 mt-2">
+                    <button type="submit" class="form-control bg-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

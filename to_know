@@ -1,0 +1,8 @@
+user test
+username : bb
+password : toto
+
+user admin:
+username : pierre
+password : 123
+email : pierre@mail.fr

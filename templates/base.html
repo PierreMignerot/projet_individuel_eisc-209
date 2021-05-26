@@ -1,0 +1,53 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" rel="stylesheet"/>
+    {% block more_head %} {% endblock %}
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="jumbotron p-4" id="jumbo">
+                <h1 class="display-4">In da Club</h1>
+                <p class="lead">A nice app to forge communities</p>
+                <hr class="my-4">
+                <div class="d-flex justify-content-between">
+                    <p class="pt-2">Welcome</p>
+                    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-2x text-primary"></i></a>
+                </div>
+            </div>
+            <nav class="mt-3">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        {% url 'all_post' as abc %}
+                        <a {% if request.get_full_path == abc %} class="nav-link active" {% endif %} class="nav-link" href="{% url 'all_post' %}">My news feed</a>
+                    </li>
+                    <li class="nav-item">
+                        {% url 'communautes' as def %}
+                        <a {% if request.get_full_path == def %} class="nav-link active" {% endif %} class="nav-link" href="{% url 'communautes' %}">My subscriptions</a>
+                    </li>
+                    <li class="nav-item">
+                        {% url 'create_post' as ijk %}
+                        <a {% if request.get_full_path == ijk %} class="nav-link active" {% endif %} class="nav-link" href="{% url 'create_post' %}">Create a post</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+{% block more_script %}
+
+{% endblock %}
+
+</body>
+</html>
